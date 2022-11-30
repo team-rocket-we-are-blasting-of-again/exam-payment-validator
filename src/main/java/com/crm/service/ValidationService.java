@@ -11,23 +11,24 @@ public class ValidationService {
             + "[^-][A-Za-z0-9-]+(\\.[A-Za-z0-9-]+)*(\\.[A-Za-z]{2,})$";
 
 
-    private boolean hasValidEmail(String emailAddress) {
+    public boolean hasValidEmail(String emailAddress) {
         return Pattern.compile(regexPattern)
                 .matcher(emailAddress)
                 .matches();
     }
 
-    private boolean isAllowedAmount(double amount) {
-        return amount >= 10000.0;
+    public boolean isAllowedAmount(double amount) {
+        return (amount <= 10000);
     }
 
-    private boolean hasOrderId(int orderId) {
-        return orderId > 0;
+    public boolean hasOrderId(int orderId) {
+        return (orderId > 0);
     }
 
     public boolean validateTransaction(Transaction transaction) {
-        return isAllowedAmount(transaction.getAmount())
-                && hasOrderId(transaction.getOrderId())
+
+        return (isAllowedAmount(transaction.getAmount())
+                && hasOrderId(transaction.getOrderId()))
                 && hasValidEmail(transaction.getUserEmail());
 
     }
